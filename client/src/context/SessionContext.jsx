@@ -22,14 +22,13 @@ export const SessionProvider = ({ children }) => {
   const login = (userData) => {
     setIsLoggedIn(true);
     setUser(userData);
-    sessionStorage.setItem("user");
+    sessionStorage.setItem("user", JSON.stringify(userData));
   };
 
   const logout = () => {
-    if (data) {
-      setIsLoggedIn(false);
-      setUser(null);
-    }
+    setIsLoggedIn(false);
+    setUser(null);
+    sessionStorage.removeItem("user");
   };
 
   return (

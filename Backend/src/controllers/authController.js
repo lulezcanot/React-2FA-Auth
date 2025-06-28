@@ -39,10 +39,21 @@ export const authStatus = async (req, res) => {
   }
 };
 export const logout = async (req, res) => {
-  if (!req.user) res.status(401).json({ message: "Unauthorized user" });
+  if (!req.user) {
+    return res.status(401).json({ message: "Unauthorized user" });
+  }
   req.logout((err) => {
-    if (err) return res.status(400).json({ message: "Use not logged in" });
-    res.status(200).json({ message: "Logout successfull" });
+    if (err) {
+      return res.status(500).json({ message: "Error during logout" });
+    }
+    req.session.destroy((err) => {
+      if(err){
+        return res.status(500).json({ message: "Error destroying session" });
+      }
+      //clear cookie
+      res.clearCookie("connect.sid");
+      res.status(200).json({ message: "Logged out successfully" });
+    });
   });
 };
 export const setup2FA = async (req, res) => {

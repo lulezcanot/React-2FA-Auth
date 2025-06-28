@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import TwoFASetup from "../components/TwoFASetup";
+import TwoFAVerification from "../components/TwoFAVerification";
 
 const Verify2FA = () => {
   const navigate = useNavigate();
 
-  const handleVerification = async () => {
+  const handleVerification = async (data) => {
     if (data) {
       navigate("/");
     }
@@ -18,7 +18,7 @@ const Verify2FA = () => {
   };
   
   return (
-    <TwoFASetup
+    <TwoFAVerification
       onVerifySuccess={handleVerification}
       onResetSuccess={handle2FAReset}
     />
