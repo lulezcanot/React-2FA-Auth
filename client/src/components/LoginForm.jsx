@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import {register, loginUser} from "../service/authApi"
 
-const LoginForm = () => {
+const LoginForm = ({onLoginSuccess}) => {
   const [isRegister, setIsRegister] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,10 +18,13 @@ const LoginForm = () => {
       setMessage(data.message);
       setUsername("");
       setPassword("");
+      setError("");
+      onLoginSuccess(data)
     } catch (error) {
       console.log("The err is: ", error.message);
       setUsername("");
       setPassword("");
+      setMessage("");
       setError("Invalid login credentails.");
     }
   }
@@ -35,11 +38,13 @@ const LoginForm = () => {
       setUsername("");
       setPassword("");
       setConfirmPassword("");
+      setError("");
     } catch (error) {
       console.log("The err is: ", error.message);
       setUsername("");
       setPassword("");
       setConfirmPassword("");
+      setMessage("");
       setError("Something went wrong during user registration.");
     }
   }
@@ -54,14 +59,14 @@ const LoginForm = () => {
     <form onSubmit={isRegister ? handleRegister: handleLogin} className="bg-white rounded-lg shadow-md w-full max-w-sm mx-auto">
       <div className="pt-6">
         <h2 className="text-3xl text-center font-extralight">
-          {isRegister ? "Create Account" : "Login"}
+          {isRegister ? "Crear una Cuenta" : "Iniciar sesión"}
         </h2>
       </div>
       <hr className="text-gray-200 mt-6 mb-6" />
       <p className="text-center text-gray-600 text-lg font-light">
         {isRegister
-          ? "Looks like you are new here!"
-          : "We are glad to see you again"}
+          ? "Parece que eres nuevo aquí!"
+          : "Nos alegramos de verle de nuevo"}
       </p>
       <div className="p-6">
         <div className="mb-4">
@@ -110,15 +115,15 @@ const LoginForm = () => {
           type="submit"
           className="w-full bg-blue-500 text-white py-2 rounded-md"
         >
-          {isRegister ? "Register " : "Login"}
+          {isRegister ? "Registrarse" : "Iniciar sesión"}
         </button>
         <div>
           <p className="pt-4 text-center text-gray-600 text-sm">
             {isRegister 
-            ? "Already have an account?"
-             : "Don't have an account?"}{""}
-            <Link to="" onClick={handleRegisterToggle}>
-              {isRegister ? "Login" : "Create acount"}
+            ? "Ya tienes una cuenta? "
+             : "¿No tienes una cuenta? "}{""}
+            <Link to="" onClick={handleRegisterToggle} className="text-blue-600">
+              {isRegister ? "Iniciar sesión" : "Crear una cuenta"}
             </Link>
           </p>
         </div>
