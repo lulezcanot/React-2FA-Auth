@@ -11,7 +11,6 @@ export const SessionProvider = ({ children }) => {
 
   useEffect(() => {
     const storedUser = JSON.parse(sessionStorage.getItem("user"));
-    console.log("the useEffect runs: ", storedUser);
     if(storedUser){
       setUser(storedUser);
       setIsLoggedIn(true);

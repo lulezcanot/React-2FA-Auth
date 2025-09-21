@@ -13,7 +13,6 @@ export const register = async (req, res) => {
       password: hashedPassword,
       isMfaActive: false,
     });
-    console.log("New User : ", newUser);
     await newUser.save();
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
@@ -22,8 +21,6 @@ export const register = async (req, res) => {
 };
 export const login = async (req, res) => {
   try {
-    console.log("The authenticated user is : ", req.user);
-    
     // Registrar métrica de login exitoso
     await MetricsService.recordAuthMetric({
       userId: req.user._id,
@@ -79,10 +76,8 @@ export const logout = async (req, res) => {
 };
 export const setup2FA = async (req, res) => {
   try {
-    console.log("The ewq.user is : ", req.user);
     const user = req.user;
     var secret = speakeasy.generateSecret();
-    console.log("The secret object is : ", secret);
     user.twoFactorSecret = secret.base32;
     user.isMfaActive = true;
     await user.save();

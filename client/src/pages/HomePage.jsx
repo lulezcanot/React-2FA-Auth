@@ -15,7 +15,6 @@ const HomePage = () => {
       logout(data);
       navigate("/login");
     } catch (error) {
-      console.log("Error: ", error.message);
     }
   }
 

@@ -11,11 +11,12 @@ export const captureLoginAttempts = (req, res, next) => {
 // Middleware para capturar información de IP y User-Agent
 export const captureRequestInfo = (req, res, next) => {
   // Obtener IP real del cliente (considerando proxies)
-  req.clientIP = req.ip || 
-                 req.connection.remoteAddress || 
-                 req.socket.remoteAddress ||
-                 (req.connection.socket ? req.connection.socket.remoteAddress : null);
-  
+  req.clientIP =
+    req.ip ||
+    req.connection.remoteAddress ||
+    req.socket.remoteAddress ||
+    (req.connection.socket ? req.connection.socket.remoteAddress : null);
+
   next();
 };
 
@@ -26,11 +27,11 @@ export const cleanupExpiredSessions = (req, res, next) => {
     const now = Date.now();
     const timeDiff = now - req.session.loginStartTime;
     const tenMinutes = 10 * 60 * 1000; // 10 minutos en milisegundos
-    
+
     if (timeDiff > tenMinutes) {
       delete req.session.loginStartTime;
     }
   }
-  
+
   next();
 };

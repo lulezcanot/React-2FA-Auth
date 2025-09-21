@@ -12,7 +12,6 @@ const TwoFAVerification = ({onVerifySuccess, onResetSuccess}) => {
         onVerifySuccess(data);
     } catch (error) {
         setOtp("");
-        console.log("The error is: ", error.message);
         setError("Invalid TOTP token. Please try again.");
     }
   };
@@ -22,7 +21,6 @@ const TwoFAVerification = ({onVerifySuccess, onResetSuccess}) => {
         const {data} = await reset2FA();
         onResetSuccess(data);
     } catch (error) {
-        console.log("The error is: ", error.message);
         setError(error.message);
     }
   }

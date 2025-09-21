@@ -4,9 +4,8 @@ import { useSession } from '../context/SessionContext';
 
 const ProtectedRoute = () => {
   const {isLoggedIn, loading} = useSession();
-  console.log("The logged in: ", isLoggedIn);
   if(loading) {
-    return <div>Cargando...</div>; // You can replace this with a loading spinner or similar
+    return <div>Cargando...</div>;
   }
   return isLoggedIn ? <Outlet/> : <Navigate to="/login"/>;
 }

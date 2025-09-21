@@ -8,7 +8,6 @@ const LoginPage = () => {
   const { login } = useSession();
 
   const handleLoginSuccess = (userData) => {
-    console.log("The logged in userdata :", userData);
     login(userData);
     if(!userData.isMfaActive){
       navigate("/setup-2fa");

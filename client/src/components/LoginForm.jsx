@@ -21,7 +21,6 @@ const LoginForm = ({onLoginSuccess}) => {
       setError("");
       onLoginSuccess(data)
     } catch (error) {
-      console.log("The err is: ", error.message);
       setUsername("");
       setPassword("");
       setMessage("");
@@ -40,7 +39,6 @@ const LoginForm = ({onLoginSuccess}) => {
       setConfirmPassword("");
       setError("");
     } catch (error) {
-      console.log("The err is: ", error.message);
       setUsername("");
       setPassword("");
       setConfirmPassword("");
