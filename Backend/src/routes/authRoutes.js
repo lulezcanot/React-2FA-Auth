@@ -9,14 +9,23 @@ import {
   verify2FA,
   reset2FA,
 } from "../controllers/authController.js";
+import {
+  captureLoginAttempts,
+  captureRequestInfo,
+  cleanupExpiredSessions,
+} from "../middleware/authMetricsMiddleware.js";
 
 const router = Router();
+
+// Aplicar middlewares globales para todas las rutas de autenticación
+router.use(captureRequestInfo);
+router.use(cleanupExpiredSessions);
 
 // Registration Route
 router.post("/register", register);
 
-// Login Route
-router.post("/login", passport.authenticate("local"), login);
+// Login Route - con middleware para capturar intentos fallidos
+router.post("/login", captureLoginAttempts, passport.authenticate("local"), login);
 
 // Auth Status Route
 router.post("/status", authStatus);
